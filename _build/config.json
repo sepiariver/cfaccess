@@ -1,0 +1,62 @@
+{
+    "name": "CFAccess",
+    "lowCaseName": "cfaccess",
+    "description": "CloudFlare Access for MODX CMS.",
+    "author": "@sepiariver",
+    "version": "0.11.1-beta1",
+    "package": {
+        "elements": {
+            "plugins": [
+                {
+                    "name": "CFA Authenticate",
+                    "file": "authenticate.plugin.php",
+                    "events": [
+                        "OnWebPageInit"
+                    ],
+                    "properties": [
+                        {
+                            "name": "obfuscate",
+                            "value": true,
+                            "type": "modx-combo-boolean"
+                        }
+                    ]
+                }
+            ],
+            "snippets": [
+                {
+                    "name": "cfa.Authenticate",
+                    "file": "authenticate.snippet.php"
+                }
+            ]
+        },
+        "systemSettings": [
+            {
+                "key": "auth_url",
+                "value": ""
+            },
+            {
+                "key": "auth_aud",
+                "value": ""
+            },
+            {
+                "key": "contexts",
+                "value": ""
+            },
+            {
+                "key": "require_moduser",
+                "value": false,
+                "type": "modx-combo-boolean"
+            },
+            {
+                "key": "assign_moduser",
+                "value": false,
+                "type": "modx-combo-boolean"
+            },
+            {
+                "key": "debug",
+                "value": false,
+                "type": "modx-combo-boolean"
+            }
+        ]
+    }
+}

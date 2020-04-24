@@ -1,0 +1,15 @@
+CFAccess 0.11.1-beta1
+=====================
+Cleanup.
+Debug mode.
+More docs.
+Beta release.
+See: https://sepiariver.com/modx/protect-your-web-server-with-cloudflare-access/
+
+CFAccess 0.9.0-alpha1
+=====================
+Initial alpha release.
+
+CFAccess 0.0.1-dev1
+=====================
+In development.

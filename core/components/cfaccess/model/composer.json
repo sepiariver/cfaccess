@@ -1,0 +1,15 @@
+{
+    "name": "sepiariver/cfaccess",
+    "description": "CloudFlare Access for MODX CMS",
+    "require": {
+        "guzzlehttp/guzzle": "^6.5",
+        "firebase/php-jwt": "^5.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "SepiaRiver\\": [
+                "src/"
+            ]
+        }
+    }
+}

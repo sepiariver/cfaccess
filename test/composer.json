@@ -1,0 +1,8 @@
+{
+    "name": "CFAccess Testing",
+    "description": "Just for testing",
+    "require-dev": {
+        "phpunit/phpunit": "^6",
+        "symfony/dotenv": "^4.4"
+    }
+}
