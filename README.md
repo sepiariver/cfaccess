@@ -19,7 +19,7 @@ Once you've [secured your web server and set up Cloudflare Access](https://sepia
 
 CFAccess does **not** call `addSessionContext`, do anything with sessions, nor set any cookies. Rather, it assigns the `$modx->user` object for the _current request_. The JWT is validated on every request, for which the Plugin or Snippet is configured to execute.
 
-Both the Snippet and Plugin execute in front-end Contexts. CFAccess does not support logging Users in to the `mgr`. 
+Both the Snippet and Plugin execute in front-end Contexts. CFAccess does not support logging Users in to the `mgr`.
 
 CFAccess does not create MODX Users. If you need more advanced user management with a single sign-on solution, check out [Auth0 for MODX](https://sepiariver.com/modx/auth0-for-modx-cms/).
 
@@ -27,13 +27,13 @@ CFAccess does not create MODX Users. If you need more advanced user management w
 
 ### Secure Your Origin Server
 
-There are a [variety of ways to do this](https://sepiariver.com/modx/protect-your-web-server-with-cloudflare-access/). Probably one of the easiest methods that have a suitably secure outcome, is the combination of a Cloudflare Worker and some web server configuration. It shouldn't take more than 10-20 minutes, although it's highly recommended to deploy it in a test or dev environment, prior to putting it into production.
+There are a [variety of ways to do this](https://sepiariver.com/modx/protect-your-web-server-with-cloudflare-access/). Probably one of the easiest methods that have a suitably secure outcome, is the combination of a Cloudflare Worker and some web server configuration. It shouldn't take more than 10-20 minutes, although it's highly recommended to deploy it in a test or dev environment, prior to putting it into production. It probably goes without saying that your DNS zone must be managed in Cloudflare with SSL mode set to `Full`.
 
-**TL;DR**
+#### TL;DR
 
 Script a Cloudflare Worker to send a secret key in a custom header. Only the Cloudflare proxy servers will be able to do this, as long as your secret key remains secret. On your web server, do something like:
 
-```
+```nginx
 if ($http_x_my_custom_header != MyCryptographicallyRandomGeneratedKey) {
     return 407; 
 }
@@ -41,7 +41,7 @@ if ($http_x_my_custom_header != MyCryptographicallyRandomGeneratedKey) {
 
 for nginx. [Remember, if is evil, except in specific cases](https://www.nginx.com/resources/wiki/start/topics/depth/ifisevil/). On Apache, use the [Require directive](https://httpd.apache.org/docs/2.4/mod/mod_authz_core.html#require):
 
-```
+```htaccess
 Require expr %{HTTP:X-My-Custom-Header} = 'MyCryptographicallyRandomGeneratedKey'
 ```
 
@@ -82,7 +82,7 @@ Validates the `CF_Authorization` JWT token and produces various outcomes based o
 
 #### Examples
 
-```
+```modx
 [[!cfa.Authenticate? 
     &authenticatedTpl=`authed` 
     &obfuscate=`0` 
@@ -93,7 +93,7 @@ Validates the `CF_Authorization` JWT token and produces various outcomes based o
 
 In the Chunk named "authed":
 
-```
+```html
 Foo: [[+foo]]
 Bar: [[+bar]]
 Notification: [[+notify]]
@@ -101,13 +101,13 @@ Notification: [[+notify]]
 
 `foo` and `bar` Snippets both contain:
 
-```
+```php
 return $modx->getOption('test', $scriptProperties, '');
 ```
 
 `notify` Snippet:
 
-```
+```php
 $email = $modx->getOption('decoded_email', $scriptProperties, '');
 if (!empty($email)) {
     // Send email
@@ -117,7 +117,7 @@ if (!empty($email)) {
 
 Output will be:
 
-```
+```html
 Foo: footest
 Bar: bartest
 Notification: Email has been sent
@@ -126,6 +126,7 @@ Notification: Email has been sent
 ### Plugin: CFA Authenticate
 
 Validates the `CF_Authorization` JWT token and sends a 4xx response based on the `$scriptProperties`:
+
 - `obfuscate` (bool) Obfuscate unauthenticated requests with a 404 response rather than 401.
 
 If the Plugin Event is fired on the initialization of a Resource (`OnWebPageInit`) in a Context with its key in the `cfaccess.contexts` System Setting, the Plugin will validate the JWT in the `CF_Authorization` cookie, and optionally invoke the functionality controlled by `cfaccess.require_moduser` and `cfaccess.assign_moduser`. See the "System Settings" section above for more details.
