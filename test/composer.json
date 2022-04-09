@@ -1,5 +1,5 @@
 {
-    "name": "CFAccess Testing",
+    "name": "sepiariver/cfaccess-test",
     "description": "Just for testing",
     "require-dev": {
         "phpunit/phpunit": "^6",
