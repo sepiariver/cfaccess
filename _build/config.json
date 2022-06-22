@@ -3,7 +3,7 @@
     "lowCaseName": "cfaccess",
     "description": "CloudFlare Access for MODX CMS.",
     "author": "@sepiariver",
-    "version": "0.12.0-beta1",
+    "version": "0.12.1-beta1",
     "package": {
         "elements": {
             "plugins": [
