@@ -3,7 +3,7 @@
     "description": "CloudFlare Access for MODX CMS",
     "require": {
         "guzzlehttp/guzzle": "^6.5",
-        "firebase/php-jwt": "^5.2"
+        "firebase/php-jwt": "^6.0"
     },
     "autoload": {
         "psr-4": {
